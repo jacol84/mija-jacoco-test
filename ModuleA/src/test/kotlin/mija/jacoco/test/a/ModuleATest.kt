@@ -38,4 +38,16 @@ internal class ModuleATest {
         //then
         assertEquals("it is dto Dto(key=key, id=100)", result)
     }
+
+    @Test
+    fun testGetterAndConstructor() {
+        //given
+        val key = "key"
+        val id = 100L
+        //when
+        val value = Dto(key, id)
+        //then
+        assertEquals(100L, value.id)
+        assertEquals("key", value.key)
+    }
 }
