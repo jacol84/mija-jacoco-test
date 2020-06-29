@@ -24,7 +24,7 @@ allprojects {
 
     tasks.jacocoTestReport {
         reports {
-            executionData(file("$value\\jacoco\\allTestCoverage.exec"))
+            executionData(file("$value/jacoco/allTestCoverage.exec"))
             sourceSets(sourceSets.main.get())
         }
     }
@@ -32,9 +32,7 @@ allprojects {
 
 tasks.register<JacocoMerge>("jacocoMergeTest") {
     destinationFile = file(allTestCoverageFile)
-    executionData(file("$value\\..\\ModuleA\\build\\jacoco\\test.exec"))
-    executionData(file("$value\\..\\ModuleB\\build\\jacoco\\test.exec"))
-    executionData(file("$value\\..\\ModuleCross\\build\\jacoco\\test.exec"))
+    subprojects.map { file("${it.buildDir}/jacoco/test.exec") }.forEach { executionData(it) }
 }
 
 application {
